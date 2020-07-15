@@ -81,7 +81,7 @@ class DoublyLinkedList:
         # decrement length
         value = self.head.value
         self.delete(self.head)
-        self.length -= 1
+        # self.length -= 1
         return value
 
     """
@@ -93,8 +93,8 @@ class DoublyLinkedList:
     def add_to_tail(self, value):
         new_node = ListNode(value)
         # increment the DLL length attribute
-        self.length += 1
         # if it is empty
+        self.length += 1
         if self.tail is None:
             # set head and tail to the new node instance
             self.head = new_node
@@ -116,7 +116,7 @@ class DoublyLinkedList:
     def remove_from_tail(self):
         value = self.tail.value
         self.delete(self.tail)
-        self.length -= 1
+        # self.length -= 1
         return value
 
     """
@@ -127,7 +127,7 @@ class DoublyLinkedList:
     def move_to_front(self, node):
         # remove input node
         self.delete(node)
-        self.length -= 1
+        # self.length -= 1
         # re-insert input node as head
         node.next = self.head
         self.head.next = node
@@ -142,7 +142,7 @@ class DoublyLinkedList:
     def move_to_end(self, node):
         # remove input node
         self.delete(node)
-        self.length -= 1
+        # self.length -= 1
         # re-insert input node as tail
         self.tail.next = node
         node.prev = self.tail
@@ -174,6 +174,7 @@ class DoublyLinkedList:
             self.length -= 1
         else:
             node.delete()
+            # note: length should be adjusted after a check for empty list
             self.length -= 1
 
     """
