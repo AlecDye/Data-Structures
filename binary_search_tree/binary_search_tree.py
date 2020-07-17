@@ -11,6 +11,44 @@ This part of the project comprises two days:
 """
 
 
+class Stack:
+    def __init__(self):
+        self.storage = []
+
+    def __len__(self):
+        return len(self.storage)
+
+    # STACK add to tail & remove from tail
+    def push(self, value):
+        return self.storage.append(value)
+
+    def pop(self):
+        if self.storage:
+            return self.storage.pop()
+        else:
+            return None
+
+
+# Queue class because I don't want to deal with importing right now
+class Queue:
+    def __init__(self):
+        self.storage = []
+
+    def __len__(self):
+        return len(self.storage)
+
+    # QUEUE add to tail & remove head
+    def enqueue(self, value):
+        return self.storage.append(value)
+
+    # remove head?
+    def dequeue(self):
+        if self.storage:
+            return self.storage.pop(0)
+        else:
+            return None
+
+
 class BSTNode:
     def __init__(self, value):
         self.value = value
@@ -87,18 +125,76 @@ class BSTNode:
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
+    # took "node" out of arguement
     def in_order_print(self, node):
-        pass
+        """
+        if the current node is None
+        we know we've reached the end of a recursion
+        (base case) we want to return
+        """
+        if self is None:
+            return
+
+        # check if we can "move left"
+        if self.left is not None:
+            self.left.in_order_print(self.left)
+
+        # visit the node by printing its value
+        print(self.value)
+
+        # check if we can "move right"
+        if self.right is not None:
+            self.right.in_order_print(self.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
+        # You should import the queue class from earlier in the
+        # week and use that class to implement this method
+        # Use a queue to form a "line"
+        # for the nodes to "get in"
+        queue = Queue()
+
+        # start by placing the root in the queue
+        queue.enqueue(node)
+
+        # need a while loop to iterate
+        # what are we checking in the while statement?
+        # while length of queue is greater than 0
+        # dequeue item from front of queue
+        # print that item
+        while len(queue) > 0:
+            next_node: BSTNode = queue.dequeue()
+            print(next_node.value)
+            # place current item's left node in queue if not None
+            if next_node.left:
+                queue.enqueue(next_node.left)
+            # place current item's right node in queue if not None
+            if next_node.right:
+                queue.enqueue(next_node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-        pass
+        # initialize an empty stack
+        stack = Stack()
+        # push the root node onto the stack
+        stack.push(node)
+        # need a while loop to manager our iteration
+        # if stack is not empty enter the while loop
+        # pop top item off the stack
+        # print that item's value
+        while len(stack) > 0:
+            next_node: BSTNode = stack.pop()
+            print(next_node.value)
+            # if there is a right subtree
+            # push right item onto the stack
+            if next_node.right:
+                stack.push(next_node.right)
+            # if there is a left subtree
+            # push left item onto the stack
+            if next_node.left:
+                stack.push(next_node.left)
 
     # Stretch Goals -------------------------
     # Note: Research may be required
